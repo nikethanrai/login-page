@@ -1,0 +1,12 @@
+.login-page {
+  height: 90vh;
+  flex-direction: column;
+}
+.login-sec {
+  min-width: 20rem;
+}
+.title {
+  text-align: center;
+  font-size: 40px;
+  margin-bottom: 2rem;
+}

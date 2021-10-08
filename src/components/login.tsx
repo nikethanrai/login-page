@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Route, Redirect, useHistory } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
@@ -31,11 +31,13 @@ const Login = () => {
     try {
       const content = await response.text();
       console.log(content);
+      setToken(content);
+
       if (content == "") {
         setErr(true);
+        setToken("");
       }
-      setToken(content);
-      document.cookie = token;
+      sessionStorage.setItem(email, token);
     } catch (error) {
       console.log(error);
       console.log("erroorr!!!");

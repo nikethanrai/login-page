@@ -11,7 +11,7 @@ const Navigation = () => {
         <Container>
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me">
-            <Nav.Link href="/home" className="px-3">
+            <Nav.Link href="/" className="px-3">
               Home
             </Nav.Link>
             <Nav.Link href="/features" className="px-3">

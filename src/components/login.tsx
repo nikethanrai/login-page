@@ -1,5 +1,6 @@
-import React, { SyntheticEvent, useState } from "react";
+import React, { SyntheticEvent, useState, useContext } from "react";
 import { Route, Redirect, useHistory } from "react-router-dom";
+import AppContext from "./Appcontext";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
@@ -7,15 +8,26 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import "./login.css";
 
-const Login = () => {
+interface Props {
+  setAuth: any;
+  setlogInfo: any;
+}
+const Login: React.FC<Props> = ({ setAuth, setlogInfo }) => {
   const [username, setUserName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [err, setErr] = useState(false);
+  const [email, setEmail] = useState("");
+
+  const auth = useContext(AppContext);
+
+  if (sessionStorage.getItem("token")) {
+    return <Redirect to="/" />;
+  }
 
   const submitHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
+    setlogInfo({ username: username, email: email });
 
     const response = await fetch(
       "https://anisoft.us/chatapp/api/user/validateuser",
@@ -32,12 +44,14 @@ const Login = () => {
       const content = await response.text();
       console.log(content);
       setToken(content);
+      sessionStorage.setItem("token", content);
 
-      if (content == "") {
+      if (!sessionStorage.getItem("token")) {
         setErr(true);
         setToken("");
+      } else {
+        setAuth(true);
       }
-      sessionStorage.setItem(email, token);
     } catch (error) {
       console.log(error);
       console.log("erroorr!!!");
@@ -48,7 +62,7 @@ const Login = () => {
     <div>
       <Container className="d-flex justify-content-center align-items-center login-page ">
         <h1 className="title">Login Page</h1>
-        {err ? <div> Details don't match</div> : ""}
+        {sessionStorage.getItem("token") ? <div> Details don't match</div> : ""}
 
         <Form className="login-sec " onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formBasicUsername">

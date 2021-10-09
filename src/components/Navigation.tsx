@@ -6,7 +6,6 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 
 import Container from "react-bootstrap/Container";
 import AppContext from "./Appcontext";
-import { clear } from "console";
 
 interface info {
   logInfo: any;
@@ -21,7 +20,7 @@ const Navigation: React.FC<info> = ({ logInfo }) => {
           <Navbar.Brand href="/">Navbar</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me">
+            <Nav className="ms-auto">
               <Nav.Link className="px-3" href="/">
                 Home
               </Nav.Link>
@@ -59,46 +58,6 @@ const Navigation: React.FC<info> = ({ logInfo }) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* <Navbar bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-          <Nav className="me">
-            <Nav.Link href="/" className="px-3">
-              Home
-            </Nav.Link>
-
-            {sessionStorage.getItem("token") ? (
-              <>
-                 <Nav.Link className="px-3" href="#link">
-                Contact us
-              </Nav.Link>
-              <NavDropdown
-                className="px-3"
-                title="Dropdown"
-                id="basic-nav-dropdown"
-              >
-                <NavDropdown.Item href="/profile">
-                  Your Profile
-                </NavDropdown.Item>
-
-                <NavDropdown.Divider />
-                <NavDropdown.Item
-                  href="/login"
-                  className="px-3"
-                  onClick={() => sessionStorage.clear()}
-                >
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
-              </>
-            ) : (
-              <Nav.Link href="/login" className="px-3">
-                Login
-              </Nav.Link>
-            )}
-          </Nav>
-        </Container>
-      </Navbar> */}
     </div>
   );
 };

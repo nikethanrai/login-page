@@ -1,4 +1,14 @@
-.Profile {
-  height: 90vh;
+#profile-pic {
+  width: 12rem;
+  height: 12rem;
+  border: 1px;
+}
+.profile-pic {
+  margin-top: 50%;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   text-align: center;
+}
+.profile {
+  padding-top: 2rem;
 }

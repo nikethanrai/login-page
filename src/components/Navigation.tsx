@@ -3,12 +3,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 
-const Navigation = () => {
+interface deets {
+  setUserDeets: any;
+}
+const Navigation: React.FC<deets> = ({ setUserDeets }) => {
   const ProfileHandler = async (e: any) => {
-    e.preventDefault();
     console.log("in ");
     const profile = await fetch(
       "https://anisoft.us/chatapp/api/user/getuserdetails",
@@ -23,6 +25,7 @@ const Navigation = () => {
       const output = await profile.text();
       console.log("hello");
       console.log(output);
+      setUserDeets(JSON.parse(output));
     } catch (error) {
       console.log(error);
     }
@@ -36,13 +39,13 @@ const Navigation = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link className="px-3" href="/">
+              <Nav.Link className="px-3" as={Link} to="/">
                 Home
               </Nav.Link>
 
               {sessionStorage.getItem("token") ? (
                 <>
-                  <Nav.Link className="px-3" href="/contact">
+                  <Nav.Link className="px-3" as={Link} to="/contact">
                     Contact us
                   </Nav.Link>
                   <NavDropdown
@@ -50,7 +53,11 @@ const Navigation = () => {
                     title="Dropdown"
                     id="basic-nav-dropdown"
                   >
-                    <NavDropdown.Item href="/profile" onClick={ProfileHandler}>
+                    <NavDropdown.Item
+                      as={Link}
+                      to="/profile"
+                      onClick={ProfileHandler}
+                    >
                       Your Profile
                     </NavDropdown.Item>
 
@@ -65,7 +72,7 @@ const Navigation = () => {
                   </NavDropdown>
                 </>
               ) : (
-                <Nav.Link href="/login" className="px-3">
+                <Nav.Link as={Link} to="/login" className="px-3">
                   Login
                 </Nav.Link>
               )}

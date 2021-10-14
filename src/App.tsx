@@ -10,20 +10,17 @@ import Contact from "./components/contact";
 
 const App = () => {
   const [auth, setAuth] = useState(false);
-  const [logInfo, setlogInfo] = useState({ username: "User", email: "" });
 
   return (
     <AppContext.Provider value={auth}>
       <div className="App">
-        <Navigation logInfo={logInfo} />
+        <Navigation />
         <BrowserRouter>
           <Switch>
             <Route
               path="/login"
               exact
-              component={() => (
-                <Login setAuth={setAuth} setlogInfo={setlogInfo} />
-              )}
+              component={() => <Login setAuth={setAuth} />}
             />
             <Route path="/contact" exact component={Contact} />
             <Route path="/profile" exact component={Profile} />

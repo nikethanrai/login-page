@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, useState, useContext } from "react";
-import { Route, Redirect, useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import AppContext from "./Appcontext";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,10 +10,8 @@ import "./login.css";
 
 interface Props {
   setAuth: any;
-  setlogInfo: any;
 }
-const Login: React.FC<Props> = ({ setAuth, setlogInfo }) => {
-  const [username, setUserName] = useState("");
+const Login: React.FC<Props> = ({ setAuth }) => {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [err, setErr] = useState(false);
@@ -27,7 +25,6 @@ const Login: React.FC<Props> = ({ setAuth, setlogInfo }) => {
 
   const submitHandler = async (e: SyntheticEvent) => {
     e.preventDefault();
-    setlogInfo({ username: username, email: email });
 
     const response = await fetch(
       "https://anisoft.us/chatapp/api/user/validateuser",
@@ -65,15 +62,6 @@ const Login: React.FC<Props> = ({ setAuth, setlogInfo }) => {
         {sessionStorage.getItem("token") ? <div> Details don't match</div> : ""}
 
         <Form className="login-sec " onSubmit={submitHandler}>
-          <Form.Group className="mb-3" controlId="formBasicUsername">
-            <Form.Label>User name</Form.Label>
-            <Form.Control
-              placeholder="UserName"
-              onChange={(e: any) => setUserName(e.target.value)}
-            />
-            <Form.Text className="text-muted"></Form.Text>
-          </Form.Group>
-
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control

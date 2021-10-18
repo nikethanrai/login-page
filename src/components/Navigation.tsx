@@ -50,7 +50,7 @@ const Navigation: React.FC<deets> = ({ setUserDeets }) => {
                   </Nav.Link>
                   <NavDropdown
                     className="px-3"
-                    title="Dropdown"
+                    title="info@anisoft.us"
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item

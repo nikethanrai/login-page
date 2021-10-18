@@ -1,14 +1,33 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-
-import { Container, Col, Row, Image } from "react-bootstrap";
+import {
+  Container,
+  Col,
+  Row,
+  Image,
+  Button,
+  Form,
+  Alert,
+} from "react-bootstrap";
+import "react-edit-text/dist/index.css";
 import "./myprofile.css";
+import { EditText, EditTextarea } from "react-edit-text";
 
 interface userdeets {
   userDeets: any;
 }
 
 const Profile: React.FC<userdeets> = ({ userDeets }) => {
+  const [editUserDeets, setEditUserDeets] = useState(userDeets);
+  const [alertState, setAlertState] = useState(false);
+
+  const submitHandler = (e: any) => {
+    e.preventDefault();
+    setAlertState(true);
+    setTimeout(() => {
+      setAlertState(false);
+    }, 3000);
+  };
   if (!sessionStorage.getItem("token")) {
     return <Redirect to="/login" />;
   }
@@ -21,29 +40,74 @@ const Profile: React.FC<userdeets> = ({ userDeets }) => {
               <Image
                 className=" border border-info border-4"
                 id="profile-pic"
-                src={userDeets.profilePic}
+                src={editUserDeets.profilePic}
                 alt=""
                 roundedCircle
               />
             </Container>
           </Col>
           <Col>
-            <Container className="profile">
-              <h4> Display Name : {userDeets.displayName}</h4>
-              <br />
-              <h4> Username : {userDeets.username}</h4>
-              <br />
-              <h4>Password : {userDeets.password}</h4>
-              <br />
-              <h4> Zipcode : {userDeets.zipCode}</h4>
-              <br />
-              <h4> Phone Number : {userDeets.phoneNumber}</h4>
-              <br />
-              <h4> First Name : {userDeets.firstName}</h4>
-              <br />
-              <h4> Last Name : {userDeets.lastName}</h4>
-              <br />
-            </Container>
+            <Form>
+              <Container className="profile">
+                <b>Username </b>[read only]<b>:</b>
+                <EditText
+                  defaultValue={editUserDeets.username}
+                  readonly
+                  className="user-info"
+                />
+                <b>Password :</b>
+                <EditText
+                  defaultValue={editUserDeets.password}
+                  placeholder="Password"
+                  className="user-info "
+                />
+                <br />
+                <b>Display Name </b>
+                <EditText
+                  defaultValue={editUserDeets.displayName}
+                  placeholder="Display Name"
+                  className="user-info"
+                />
+                <b>First Name :</b>{" "}
+                <EditText
+                  defaultValue={editUserDeets.firstName}
+                  placeholder="first name"
+                  className="user-info"
+                />
+                <b>Last Name :</b>{" "}
+                <EditText
+                  defaultValue={editUserDeets.lastName}
+                  placeholder="last name"
+                  className="user-info"
+                />
+                <b>Phone Number :</b>
+                <EditText
+                  defaultValue={editUserDeets.phoneNumber}
+                  placeholder="phone number"
+                  className="user-info"
+                />
+                <b>Zipcode :</b>{" "}
+                <EditText
+                  defaultValue={editUserDeets.zipCode}
+                  placeholder="zipcode"
+                  className="user-info"
+                />
+                <Button onClick={submitHandler} type="submit">
+                  Save
+                </Button>
+                <Button variant="danger" className="px-2 m-3">
+                  Cancel
+                </Button>
+                <div id="alert">
+                  {" "}
+                  {alertState ? (
+                    <Alert variant="success">user details updated!!</Alert>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </Container>
+            </Form>
           </Col>
         </Row>
       </Container>

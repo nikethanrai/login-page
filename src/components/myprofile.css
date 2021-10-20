@@ -7,9 +7,10 @@
   padding-top: 2rem;
   padding-bottom: 2rem;
   text-align: center;
+  padding-right: 5rem;
 }
-.profile {
-  padding-top: 1.2rem;
+.Profile {
+  padding-top: 2rem;
   color: rgb(2, 26, 21);
 }
 .user-info {
@@ -17,4 +18,8 @@
 }
 #alert {
   display: inline-block;
+  padding-left: 4rem;
+}
+#button-top {
+  margin-top: 2rem;
 }

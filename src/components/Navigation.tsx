@@ -64,7 +64,9 @@ const Navigation: React.FC<deets> = ({ setUserDeets }) => {
                     <NavDropdown.Divider />
                     <NavDropdown.Item
                       href="/login"
-                      className="px-3"
+                      className="px-3 text-danger
+
+                      "
                       onClick={() => sessionStorage.clear()}
                     >
                       Logout

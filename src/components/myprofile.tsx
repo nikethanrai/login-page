@@ -14,28 +14,6 @@ import "./myprofile.css";
 import { Formik } from "formik";
 import * as yup from "yup";
 
-const schema = yup.object().shape({
-  firstName: yup.string().required("First Name is required"),
-  lastName: yup.string().required("Last Name is required"),
-  username: yup.string().required(),
-  password: yup
-    .string()
-    .required()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
-    ),
-  displayName: yup.string(),
-  phoneNumber: yup
-    .string()
-    .required("Phone Number is required")
-    .matches(
-      /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
-      "Add  a 10 digit number "
-    ),
-  zip: yup.string().nullable(),
-});
-
 interface userdeets {
   userDeets: any;
 }
@@ -45,6 +23,28 @@ const Profile: React.FC<userdeets> = ({ userDeets }) => {
   const [alertState, setAlertState] = useState(false);
   const [cancelState, setCancelState] = useState(false);
   const [defaultState, setDefaultState] = useState(false);
+
+  const schema = yup.object().shape({
+    firstName: yup.string().required("First Name is required"),
+    lastName: yup.string().required("Last Name is required"),
+    username: yup.string().required(),
+    password: yup
+      .string()
+      .required()
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+        "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character"
+      ),
+    displayName: yup.string(),
+    phoneNumber: yup
+      .string()
+      .required("Phone Number is required")
+      .matches(
+        /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
+        "Add  a 10 digit number "
+      ),
+    zip: yup.string().nullable(),
+  });
 
   const cancelHandler = (e: any) => {
     setDefaultState(true);
